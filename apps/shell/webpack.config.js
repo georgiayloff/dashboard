@@ -11,24 +11,17 @@ const path = require('path');
  * This NX_TSCONFIG_PATH environment variable is set by the @nrwl/angular:webpack-browser and it contains
  * the location of the generated temporary tsconfig file.
  */
-const tsConfigPath =
-  process.env.NX_TSCONFIG_PATH ??
-  path.join(__dirname, '../../tsconfig.base.json');
 
-const workspaceRootPath = path.join(__dirname, '../../');
 const sharedMappings = new mf.SharedMappings();
-sharedMappings.register(
-  tsConfigPath,
-  [
-    /* mapped paths to share */
-  ],
-  workspaceRootPath
-);
+sharedMappings.register(path.join(__dirname, '../../tsconfig.base.json'), [
+  '@dashboard/shared/data-access-user',
+]);
 
 module.exports = {
   output: {
     uniqueName: 'shell',
     publicPath: 'auto',
+    scriptType: 'text/javascript',
   },
   optimization: {
     runtimeChunk: false,
