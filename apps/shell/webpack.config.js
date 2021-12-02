@@ -34,9 +34,7 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      remotes: {
-        login: 'login@http://localhost:3000/remoteEntry.js',
-      },
+      remotes: {},
       shared: {
         '@angular/core': { singleton: true, strictVersion: true },
         '@angular/common': { singleton: true, strictVersion: true },

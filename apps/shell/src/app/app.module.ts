@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
+import { loadRemoteModule } from '@angular-architects/module-federation-runtime';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,7 +14,12 @@ import { RouterModule } from '@angular/router';
         {
           path: 'login',
           loadChildren: () =>
-            import('login/Module').then((m) => m.RemoteEntryModule),
+            loadRemoteModule<LoginMf>({
+              remoteEntry: 'http://localhost:3000/remoteEntry.js',
+              remoteName: 'login',
+              exposedModule: './Module'
+            })
+              .then(esm => esm.RemoteEntryModule)
         },
       ],
       { initialNavigation: 'enabledBlocking' }
